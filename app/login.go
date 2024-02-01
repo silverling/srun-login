@@ -17,12 +17,32 @@ type Config struct {
 func login(config Config) bool {
 	log.Print("Login......")
 
-	resp, _ := RequestChallenge(config.Username)
-	challenge := resp["challenge"].(string)
-	ip := resp["online_ip"].(string)
+	resp, err := RequestChallenge(config.Username)
+	if err != nil {
+		log.Println("Request challenge failed, error:", err)
+		return false
+	}
+	challenge, ok := resp["challenge"].(string)
+	if !ok {
+		log.Println("Error: parse challenge failed")
+		return false
+	}
+	ip, ok := resp["online_ip"].(string)
+	if !ok {
+		log.Println("Error: parse ip failed")
+		return false
+	}
 
-	resp, _ = RequestLogin(config.Username, config.Password, ip, challenge)
-	result := resp["error"].(string)
+	resp, err = RequestLogin(config.Username, config.Password, ip, challenge)
+	if err != nil {
+		log.Println("Request login failed, error:", err)
+		return false
+	}
+	result, ok := resp["error"].(string)
+	if !ok {
+		log.Println("Error: parse login result failed")
+		return false
+	}
 
 	if result == "ok" {
 		log.Println("Login success, ip:", ip)
@@ -53,12 +73,12 @@ func loadConfig(filePath string) (Config, error) {
 	if config.Host != "" {
 		log.Println("Use given host:", config.Host)
 		Host = config.Host
+		ChallengeURL = Host + "/cgi-bin/get_challenge"
+		UserInfoURL = Host + "/cgi-bin/rad_user_info"
+		LoginURL = Host + "/cgi-bin/srun_portal"
 	} else {
 		log.Println("Host is empty, use default host:", Host)
 	}
-	ChallengeURL = Host + "/cgi-bin/get_challenge"
-	UserInfoURL = Host + "/cgi-bin/rad_user_info"
-	LoginURL = Host + "/cgi-bin/srun_portal"
 
 	if config.Username == "" || config.Password == "" {
 		log.Println("Error: username or password is empty")

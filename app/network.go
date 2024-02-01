@@ -12,9 +12,9 @@ import (
 )
 
 var Host = "http://10.255.44.33"
-var ChallengeURL string
-var UserInfoURL string
-var LoginURL string
+var ChallengeURL string = Host + "/cgi-bin/get_challenge"
+var UserInfoURL string = Host + "/cgi-bin/rad_user_info"
+var LoginURL string = Host + "/cgi-bin/srun_portal"
 
 var defaultHeaders = map[string]string{
 	"Accept":           "text/javascript, application/javascript, application/ecmascript, application/x-ecmascript, */*; q=0.01",
