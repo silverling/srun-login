@@ -11,7 +11,7 @@ import (
 	"strings"
 )
 
-var Host = "http://w.xidian.edu.cn"
+var Host = "http://10.255.44.33"
 var ChallengeURL string
 var UserInfoURL string
 var LoginURL string
@@ -22,9 +22,9 @@ var defaultHeaders = map[string]string{
 	"Accept-Language":  "zh-CN,zh;q=0.9,en;q=0.8",
 	"Cache-Control":    "no-cache",
 	"Connection":       "keep-alive",
-	"Host":             "w.xidian.edu.cn",
+	"Host":             "10.255.44.33",
 	"Pragma":           "no-cache",
-	"Referer":          "http://w.xidian.edu.cn/srun_portal_pc?ac_id=1&theme=pro",
+	"Referer":          "http://10.255.44.33/srun_portal_pc?ac_id=1&theme=pro",
 	"User-Agent":       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0",
 	"X-Requested-With": "XMLHttpRequest",
 }

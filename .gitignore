@@ -1,2 +1,6 @@
+/build
+/cache
+/config.yaml
+/log.txt
 *.exe
-cache/
+*.ps1
