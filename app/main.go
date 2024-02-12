@@ -14,8 +14,13 @@ func run() {
 		return
 	}
 
+	isOnline := testConnection()
+	if isOnline {
+		log.Println("You are already online")
+	}
+
 	for {
-		isOnline := testConnection()
+		isOnline = testConnection()
 		if !isOnline {
 			log.Println("Offline, try to login")
 			for {

@@ -1,5 +1,6 @@
 /build
 /cache
+/test
 /config.yaml
 /log.txt
 *.exe

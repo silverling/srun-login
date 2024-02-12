@@ -24,12 +24,12 @@ func login(config Config) bool {
 	}
 	challenge, ok := resp["challenge"].(string)
 	if !ok {
-		log.Println("Error: parse challenge failed")
+		log.Println("Error: parse challenge failed, resp:", resp)
 		return false
 	}
 	ip, ok := resp["online_ip"].(string)
 	if !ok {
-		log.Println("Error: parse ip failed")
+		log.Println("Error: parse ip failed, resp:", resp)
 		return false
 	}
 
@@ -40,7 +40,7 @@ func login(config Config) bool {
 	}
 	result, ok := resp["error"].(string)
 	if !ok {
-		log.Println("Error: parse login result failed")
+		log.Println("Error: parse login result failed, resp:", resp)
 		return false
 	}
 
@@ -48,7 +48,7 @@ func login(config Config) bool {
 		log.Println("Login success, ip:", ip)
 		return true
 	} else {
-		log.Println("Login failed, error:", result)
+		log.Println("Login failed, result:", result)
 		return false
 	}
 }
