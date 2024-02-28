@@ -58,7 +58,13 @@ func testConnection() bool {
 	// If you visit any website using https, you will get a timeout error
 	// So we use http generate_204 to test connection
 	url := "http://wifi.vivo.com.cn/generate_204"
-	resp, err := http.Get(url)
+
+	transport := http.DefaultTransport.(*http.Transport).Clone()
+	transport.DisableKeepAlives = true
+
+	client := &http.Client{Transport: transport}
+	resp, err := client.Get(url)
+
 	return err == nil && resp.StatusCode == 204
 }
 
