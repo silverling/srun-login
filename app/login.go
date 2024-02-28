@@ -15,7 +15,6 @@ type Config struct {
 }
 
 func login(config Config) bool {
-	log.Print("Login......")
 
 	resp, err := RequestChallenge(config.Username)
 	if err != nil {
@@ -54,8 +53,13 @@ func login(config Config) bool {
 }
 
 func testConnection() bool {
-	resp, err := http.Get("http://www.baidu.com")
-	return err == nil && resp.StatusCode == 200
+	// If you were offline, when you visit any website using http (not https),
+	// you will be redirected to the login page and the status code will be 200
+	// If you visit any website using https, you will get a timeout error
+	// So we use http generate_204 to test connection
+	url := "http://wifi.vivo.com.cn/generate_204"
+	resp, err := http.Get(url)
+	return err == nil && resp.StatusCode == 204
 }
 
 func loadConfig(filePath string) (Config, error) {
